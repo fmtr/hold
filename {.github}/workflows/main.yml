@@ -3,7 +3,7 @@ name: Version and Deploy
 on:
   push:
     paths:
-      - '{org}/{package}/version'
+      - 'fmtr/dns/version'
   workflow_dispatch:
 
 
@@ -14,12 +14,12 @@ jobs:
 
     env:
       VERSION: ${{ github.event.inputs.version }}
-      NAME: { org }.{package}
+      NAME: { org }.dns
       ORG: { org }
       NAME_SHORT: { package }
-      PATH_VERSION: { org }/{package}/version
+      PATH_VERSION: { org }/dns/version
       #SHLINK_API_KEY: ${{ secrets.SHLINK_API_KEY }}
-      #LINK_ID: {package}
+      #LINK_ID: dns
 
 
     steps:

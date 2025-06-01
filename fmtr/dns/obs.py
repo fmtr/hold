@@ -1,10 +1,11 @@
 from fmtr.tools import logging, debug
 from fmtr.tools.environment_tools import IS_DEBUG
-from org.package.version import __version__
+
+from fmtr.dns.version import __version__
 
 debug.trace()
 
-NAME = '{org}.{package}'
+NAME = 'fmtr.dns'
 
 logger = logging.get_logger(
     name=NAME,
