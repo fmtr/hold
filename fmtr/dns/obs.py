@@ -1,14 +1,13 @@
-from fmtr.tools import logging, debug
-from fmtr.tools.environment_tools import IS_DEBUG
-
+from fmtr.dns.paths import paths
 from fmtr.dns.version import __version__
+from fmtr.tools import logging, debug
 
 debug.trace()
 
-NAME = 'fmtr.dns'
+
 
 logger = logging.get_logger(
-    name=NAME,
-    stream=logging.DEVELOPMENT if IS_DEBUG else NAME,
+    name=paths.name_ns,
+    stream=paths.name_ns,
     version=__version__,
 )

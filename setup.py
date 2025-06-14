@@ -2,7 +2,7 @@ from fmtr.tools import Setup
 
 setup = Setup(
     dependencies=dict(
-        install=['fmtr.tools[version,logging,dns,http,patterns,sets,yaml,debug]'],
+        install=['fmtr.tools[version,logging,dns,http,patterns,sets,yaml,debug,caching]'],
     ),
-    description='Home lab DNS server'
+    description='Homelab AdBlocking DNS Server'
 )

@@ -1,0 +1,2 @@
+SUBDOMAIN = r'[a-zA-Z0-9-]+'
+SUBDOMAINS = fr'({SUBDOMAIN}\.)*'
