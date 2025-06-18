@@ -2,8 +2,10 @@ import dns as dnspython
 import regex as re
 from dataclasses import dataclass
 from dns.rrset import RRset
+from functools import cached_property
 from typing import Self, List
 
+from fmtr.dns import caching
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.obs import logger
 from fmtr.dns.patterns import SUBDOMAINS
@@ -17,6 +19,7 @@ Request, Response, Exchange = dns.dm.Request, dns.dm.Response, dns.dm.Exchange
 
 
 BLACKHOLE = 'BLACKHOLE'
+ANSWER_PRE_TTL = 6_000
 
 
 @dataclass
@@ -54,7 +57,7 @@ class KeyDNS(Key):
         """
         rrset = dnspython.rrset.from_text(
             name,
-            300,  # TODO: What should this be?
+            ANSWER_PRE_TTL,
             dnspython.rdataclass.IN,
             self.records,
             self.name,
@@ -129,17 +132,27 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
     rewriter: TransformerDNS
     client: Upstreams | client.HTTP
 
+    @cached_property
+    def cache(self):
+        """
 
-    def block(self, exchange: Exchange):
+        Overridable cache.
+
+        """
+        cache = caching.CacheDNS(maxsize=1_024, desc='DNS Request')
+        return cache
+
+    def block(self, exchange: Exchange, key: KeyDNS):
         """
 
         Remove any existing answers, set NXDOMAIN and complete
 
         """
-        exchange.response.message.answer.clear()
+        exchange.response = Response.from_message(exchange.request.get_response_template())
         exchange.response.message.set_rcode(dnspython.rcode.NXDOMAIN)
-        exchange.response.is_complete = True
-        logger.warning(f'Request blocked.')
+        exchange.is_complete = True
+        exchange.response.blocked_by = key.name
+        logger.warning(f'Request blocked: {key.name}.')
 
     def process_question(self, exchange: Exchange):
         """
@@ -148,16 +161,15 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
         Otherwise, add the rewrite to the currest response.
 
         """
+        key_in = KeyDNS.from_exchange(exchange)
+        key_out: KeyDNS = self.rewriter.get(key_in)
 
-        key = KeyDNS.from_exchange(exchange)
-        output: KeyDNS = self.rewriter.get(key)
+        if key_out == BLACKHOLE:
+            return self.block(exchange, key_in)
 
-        if output == BLACKHOLE:
-            return self.block(exchange)
-
-        if key is not output:  # TODO: Add whole rewrite chain as RRSets
-            rrset = output.to_rrset(exchange.request.name)
-            exchange.response.message.answer.append(rrset)
+        if key_in is not key_out:  # TODO: Add whole rewrite chain as RRSets
+            rrset = key_out.to_rrset(exchange.request.name)
+            exchange.answers_pre.append(rrset)
 
         return
 
@@ -175,9 +187,20 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
             key = KeyDNS.from_rrset(rrset)
             output = self.rewriter.get(key)
             if output == BLACKHOLE:
-                return self.block(exchange)
+                return self.block(exchange, key)
 
         return
+
+    def finalize(self, exchange: Exchange):
+        """
+
+        If we have additional answers to prepend to the exchange (e.g. from rewrites) then add them.
+
+        """
+
+        exchange.response.message.answer = exchange.answers_pre + exchange.response.message.answer
+        exchange.response.message.question = exchange.request.message.question
+        exchange.is_complete = True
 
 
 if __name__ == '__main__':
