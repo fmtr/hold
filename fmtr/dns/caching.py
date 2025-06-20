@@ -20,9 +20,7 @@ class CacheDNS(caching.TLRU):
         Select the minimum TTL of all answers in the response
 
         """
-        ttls = [answer.ttl for answer in response.message.answer] or {0}
-        seconds = min(ttls)
-        delta = timedelta(seconds=seconds)
+        delta = timedelta(seconds=response.ttl)
         logger.debug(f'Setting cache TTL: {self.MASK_MAPPING.format(key=key, value=delta)}')
         ttu = now + delta
         return ttu

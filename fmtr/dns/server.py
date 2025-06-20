@@ -19,7 +19,7 @@ Request, Response, Exchange = dns.dm.Request, dns.dm.Response, dns.dm.Exchange
 
 
 BLACKHOLE = 'BLACKHOLE'
-ANSWER_PRE_TTL = 6_000
+ANSWER_PRE_TTL = 24 * 60 * 60
 
 
 @dataclass
@@ -200,7 +200,7 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
 
         exchange.response.message.answer = exchange.answers_pre + exchange.response.message.answer
         exchange.response.message.question = exchange.request.message.question
-        exchange.is_complete = True
+        super().finalize(exchange)
 
 
 if __name__ == '__main__':

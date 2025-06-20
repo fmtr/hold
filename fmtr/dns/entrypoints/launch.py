@@ -1,3 +1,8 @@
+import asyncio
+
+from fmtr.dns.api import DNS
+
+
 def main():
     from fmtr.tools import debug
     debug.trace()
@@ -13,7 +18,9 @@ def main():
         settings = Settings()
 
     logger.info(f'Launching server...')
-    settings.server.start()
+
+    asyncio.run(DNS.start(settings.server))
+
 
 
 if __name__ == '__main__':
