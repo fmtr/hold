@@ -1,136 +1,21 @@
 import dns as dnspython
-import regex as re
 from dataclasses import dataclass
-from dns.rrset import RRset
 from functools import cached_property
-from typing import Self, List
 
 from fmtr.dns import caching
-from fmtr.dns.blocklist import BlockList
+from fmtr.dns.client import Upstreams
+from fmtr.dns.constants import BLACKHOLE
 from fmtr.dns.obs import logger
-from fmtr.dns.patterns import SUBDOMAINS
+from fmtr.dns.transformer import KeyDNS, TransformerDNS
 from fmtr.tools import dns
-from fmtr.tools.dns_tools.client import Plain
-from fmtr.tools.pattern_tools import Transformer, Key, Item, alt
-
-client = dns.client
 
 Request, Response, Exchange = dns.dm.Request, dns.dm.Response, dns.dm.Exchange
-
-
-BLACKHOLE = 'BLACKHOLE'
-ANSWER_PRE_TTL = 24 * 60 * 60
-
-
-@dataclass
-class KeyDNS(Key):
-    """
-
-    Key for transforming an RRSet using a set of rules
-
-    """
-    name: str
-    records: str
-
-    @classmethod
-    def from_rrset(cls, rrset: RRset) -> Self:
-        """
-
-        From RRSet
-
-        """
-        records = rrset.rdtype.to_text(rrset.rdtype)
-        self = cls(name=rrset.name.to_text(), records=records)
-        return self
-
-    @classmethod
-    def from_exchange(cls, exchange: Exchange) -> Self:
-        rrset = exchange.question_last
-        self = cls.from_rrset(rrset)
-        return self
-
-    def to_rrset(self, name) -> RRset:
-        """
-
-        Create an RRSet mapping a source name to this key's name via this key's record.
-
-        """
-        rrset = dnspython.rrset.from_text(
-            name,
-            ANSWER_PRE_TTL,
-            dnspython.rdataclass.IN,
-            self.records,
-            self.name,
-        )
-
-        return rrset
-
-
-@dataclass
-class RuleDNS(Item):
-    source: KeyDNS
-    target: KeyDNS | str
-
-
-@dataclass
-class RuleUpstream(RuleDNS):
-    source: KeyDNS
-    target: Plain
-
-
-@dataclass
-class TransformerDNS(Transformer):
-    items: List[RuleDNS]
-    blocklist: BlockList
-
-    def __post_init__(self):
-        """
-
-        Add blocklist rule
-
-        """
-
-        domains = self.blocklist.refresh()
-
-        patterns = [re.escape(domain) for domain in domains]
-        pattern = alt(*patterns)
-        pattern = f'{SUBDOMAINS}{pattern}'
-
-        key = KeyDNS(
-            name=pattern,
-            records='AAAA|CNAME|A'
-        )
-
-        rule = RuleDNS(
-            source=key,
-            target=BLACKHOLE,
-        )
-
-        self.items.append(rule)
-
-        super().__post_init__()
-
-@dataclass
-class Upstreams(Transformer):
-    items: List[RuleUpstream]
-    default: client.HTTP
-
-    def resolve(self, exchange: Exchange):
-        """
-
-        Select the appropriate upstream resolver based on the question plus rules
-
-        """
-
-        key = KeyDNS.from_exchange(exchange)
-        upstream = self.get(key)
-        return upstream.resolve(exchange)
 
 
 @dataclass(kw_only=True, eq=False)
 class AdBlockDoHProxy(dns.proxy.Proxy):
     rewriter: TransformerDNS
-    client: Upstreams | client.HTTP
+    client: Upstreams | dns.client.HTTP
     is_block_enabled: bool = True
 
     @cached_property
