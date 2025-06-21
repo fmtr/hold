@@ -131,6 +131,7 @@ class Upstreams(Transformer):
 class AdBlockDoHProxy(dns.proxy.Proxy):
     rewriter: TransformerDNS
     client: Upstreams | client.HTTP
+    is_block_enabled: bool = True
 
     @cached_property
     def cache(self):
@@ -148,11 +149,16 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
         Remove any existing answers, set NXDOMAIN and complete
 
         """
+
+        logger.warning(f'Request blocked: {key.name} {self.is_block_enabled=}')
+        if not self.is_block_enabled:
+            return
+
         exchange.response = Response.from_message(exchange.request.get_response_template())
         exchange.response.message.set_rcode(dnspython.rcode.NXDOMAIN)
         exchange.is_complete = True
         exchange.response.blocked_by = key.name
-        logger.warning(f'Request blocked: {key.name}.')
+
 
     def process_question(self, exchange: Exchange):
         """
@@ -165,7 +171,13 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
         key_out: KeyDNS = self.rewriter.get(key_in)
 
         if key_out == BLACKHOLE:
-            return self.block(exchange, key_in)
+            # TODO: Not ideal. First we waste time comparing against the blocklist, and we also lose any rewrites that happened before the blackhole.
+            # To fix properly, we'd probably need two separate transformers, one for rewrites, one of blocks.
+            # It also means we need to clear cache to toggle blocking. We can add the blocking boolean to the cache key.
+            self.block(exchange, key_in)
+            if exchange.is_complete:
+                return
+            key_out = key_in
 
         if key_in is not key_out:  # TODO: Add whole rewrite chain as RRSets
             rrset = key_out.to_rrset(exchange.request.name)
@@ -187,7 +199,9 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
             key = KeyDNS.from_rrset(rrset)
             output = self.rewriter.get(key)
             if output == BLACKHOLE:
-                return self.block(exchange, key)
+                self.block(exchange, key)
+                if exchange.is_complete:
+                    return
 
         return
 
