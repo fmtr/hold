@@ -1,4 +1,3 @@
-import dns as dnspython
 from dataclasses import dataclass
 from functools import cached_property
 
@@ -40,7 +39,7 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
             return
 
         exchange.response = Response.from_message(exchange.request.get_response_template())
-        exchange.response.message.set_rcode(dnspython.rcode.NXDOMAIN)
+        exchange.response.message.set_rcode(dns.dns.rcode.NXDOMAIN)
         exchange.is_complete = True
         exchange.response.blocked_by = key.name
 
