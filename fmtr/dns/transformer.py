@@ -15,6 +15,7 @@ class KeyDNS(tools.patterns.Key):
     Key for transforming an RRSet using a set of rules
 
     """
+    FILLS = dict(SUBDOMAIN='[a-zA-Z0-9-]+')
     name: str
     records: str
 

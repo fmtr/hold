@@ -1,4 +1,5 @@
 import asyncio
+
 import uvicorn
 
 from fmtr.dns.obs import logger
@@ -7,8 +8,9 @@ from fmtr.tools import api
 from fmtr.tools.constants import Constants
 
 
-class DNS(api.ApiBase):
+class DNS(api.Base):
     TITLE = paths.name_ns
+    URL_DOCS = '/'
 
     def __init__(self, server):
         super().__init__()
