@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Self, List
 
 from fmtr import tools
+from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
 from fmtr.tools import dns
@@ -15,7 +16,7 @@ class KeyDNS(tools.patterns.Key):
     Key for transforming an RRSet using a set of rules
 
     """
-    FILLS = dict(SUBDOMAIN='[a-zA-Z0-9-]+')
+    FILLS = patterns.FILLS
     name: str
     records: str
 
