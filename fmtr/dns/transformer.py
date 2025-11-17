@@ -5,6 +5,7 @@ from fmtr import tools
 from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
+from fmtr.dns.obs import logger
 from fmtr.tools import dns
 from fmtr.tools.dns_tools.client import Plain
 
@@ -61,6 +62,11 @@ class RuleDNS(tools.patterns.Item):
 
 
 @dataclass
+class RuleBlocklistDNS(RuleDNS):
+    ...
+
+
+@dataclass
 class RuleUpstream(RuleDNS):
     source: KeyDNS
     target: Plain
@@ -77,8 +83,23 @@ class TransformerDNS(tools.patterns.Transformer):
         Add blocklist rule
 
         """
+        self.add_blocklist()
+        super().__post_init__()
 
-        domains = self.blocklist.refresh()
+    def refresh_blocklist(self):
+        self.blocklist.reset()
+        self.add_blocklist()
+        self.compile(clear=True)
+
+    def add_blocklist(self):
+
+        try:
+            domains = self.blocklist.refresh()
+        except Exception as exception:
+            logger.error(f'Error refreshing blocklist. Skipping to allow start-up: {repr(exception)}')
+            return
+
+        logger.info(f'Blocklist loaded: {len(domains)=}')
 
         patterns = [tools.patterns.re.escape(domain) for domain in domains]
         pattern = tools.patterns.alt(*patterns)
@@ -89,11 +110,10 @@ class TransformerDNS(tools.patterns.Transformer):
             records='AAAA|CNAME|A'
         )
 
-        rule = RuleDNS(
+        rule = RuleBlocklistDNS(
             source=key,
             target=BLACKHOLE,
         )
 
+        self.items = [item for item in self.items if type(item) is not RuleBlocklistDNS]  # Bit goofy, but only way to pop out just the blocklist rule.
         self.items.append(rule)
-
-        super().__post_init__()

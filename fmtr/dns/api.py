@@ -25,6 +25,7 @@ class DNS(api.Base):
         endpoints = [
             api.Endpoint(method=self.cache_clear, path='/cache/clear', method_http=self.app.post, tags='cache'),
             api.Endpoint(method=self.toggle_blocking, path='/blocking/toggle', method_http=self.app.post, tags='blocking'),
+            api.Endpoint(method=self.refresh_blocklist, path='/blocking/refresh', method_http=self.app.post, tags='blocking'),
 
         ]
 
@@ -56,6 +57,19 @@ class DNS(api.Base):
             self.cache_clear()
 
         return new
+
+    def refresh_blocklist(self) -> int:
+        """
+
+        Refresh Ad Blocking blocklist.
+
+        """
+        with logger.span(f'Refreshing blocklist...'):
+            self.server.rewriter.refresh_blocklist()
+            length = len(self.server.rewriter.blocklist.refresh())
+            self.server.cache.clear()
+
+        return length
 
     async def launch(self):
         config = uvicorn.Config(self.app, host=self.HOST, port=self.PORT)
