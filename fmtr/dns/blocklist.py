@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from corio import http
 from fmtr.dns.caching import disk
 from fmtr.dns.obs import logger
-from fmtr.tools import http
 
 
 @dataclass(frozen=True)

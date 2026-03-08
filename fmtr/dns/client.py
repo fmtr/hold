@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
+from corio import dns, patterns
 from fmtr.dns.transformer import RuleUpstream, KeyDNS
-from fmtr.tools import dns, patterns
 
 
 @dataclass

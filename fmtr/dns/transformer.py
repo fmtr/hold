@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import Self, List
 
+from corio import dns
+from corio.dns_tools.client import Plain
 from fmtr import tools
 from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
 from fmtr.dns.obs import logger
-from fmtr.tools import dns
-from fmtr.tools.dns_tools.client import Plain
 
 
 @dataclass

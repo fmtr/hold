@@ -1,8 +1,8 @@
 from datetime import timedelta
 
+from corio import caching
 from fmtr.dns.obs import logger
 from fmtr.dns.paths import paths
-from fmtr.tools import caching
 
 disk = caching.Disk(paths.cache)
 
