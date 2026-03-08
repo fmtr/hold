@@ -1,5 +1,5 @@
 {
-    "version": "0.0.20",
+    "version": "0.0.21",
     "port": 4,
     "entrypoint": null,
     "base": "python",
@@ -8,7 +8,9 @@
     "org_github": "fmtr",
     "org_friendly": "Frontmatter AI",
     "is_client": false,
-    "scripts": [],
+    "scripts": [
+        "install-ys"
+    ],
     "services": [],
     "docs": {},
     "setup": {},
