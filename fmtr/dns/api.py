@@ -11,9 +11,9 @@ class DNS(api.Base):
     TITLE = paths.name_ns
     URL_DOCS = '/'
 
-    def __init__(self, server):
+    def __init__(self, dns_server):
         super().__init__()
-        self.server = server
+        self.dns_server = dns_server
 
     def get_endpoints(self):
         """
@@ -37,8 +37,8 @@ class DNS(api.Base):
 
         """
         with logger.span(f'Clearing cache...'):
-            length = len(self.server.cache.keys())
-            self.server.cache.clear()
+            length = len(self.dns_server.cache.keys())
+            self.dns_server.cache.clear()
 
         return length
 
@@ -49,10 +49,10 @@ class DNS(api.Base):
 
         """
 
-        currrent = self.server.is_block_enabled
+        currrent = self.dns_server.is_block_enabled
         new = not currrent
         with logger.span(f'Toggling blocking {currrent} {Constants.ARROW} {new}...'):
-            self.server.is_block_enabled = new
+            self.dns_server.is_block_enabled = new
             self.cache_clear()
 
         return new
@@ -64,9 +64,9 @@ class DNS(api.Base):
 
         """
         with logger.span(f'Refreshing blocklist...'):
-            self.server.rewriter.refresh_blocklist()
-            length = len(self.server.rewriter.blocklist.refresh())
-            self.server.cache.clear()
+            self.dns_server.rewriter.refresh_blocklist()
+            length = len(self.dns_server.rewriter.blocklist.refresh())
+            self.dns_server.cache.clear()
 
         return length
 
@@ -80,7 +80,7 @@ class DNS(api.Base):
         self = cls(server)
         await asyncio.gather(
             self.launch(),
-            self.server.start(),
+            self.dns_server.start(),
         )
 
 

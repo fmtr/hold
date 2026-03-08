@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Self, List
 
+import corio
 from corio import dns
 from corio.dns_tools.client import Plain
-from fmtr import tools
 from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
@@ -11,7 +11,7 @@ from fmtr.dns.obs import logger
 
 
 @dataclass
-class KeyDNS(tools.patterns.Key):
+class KeyDNS(corio.patterns.Key):
     """
 
     Key for transforming an RRSet using a set of rules
@@ -56,7 +56,7 @@ class KeyDNS(tools.patterns.Key):
 
 
 @dataclass
-class RuleDNS(tools.patterns.Item):
+class RuleDNS(corio.patterns.Item):
     source: KeyDNS
     target: KeyDNS | str
 
@@ -73,7 +73,7 @@ class RuleUpstream(RuleDNS):
 
 
 @dataclass
-class TransformerDNS(tools.patterns.Transformer):
+class TransformerDNS(corio.patterns.Transformer):
     items: List[RuleDNS]
     blocklist: BlockList
 
@@ -101,8 +101,8 @@ class TransformerDNS(tools.patterns.Transformer):
 
         logger.info(f'Blocklist loaded: {len(domains)=}')
 
-        patterns = [tools.patterns.re.escape(domain) for domain in domains]
-        pattern = tools.patterns.alt(*patterns)
+        patterns = [corio.patterns.re.escape(domain) for domain in domains]
+        pattern = corio.patterns.alt(*patterns)
         pattern = f'{SUBDOMAINS}{pattern}'
 
         key = KeyDNS(
