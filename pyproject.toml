@@ -33,7 +33,7 @@ include = ["fmtr.dns*"]
 namespaces = true
 
 [tool.setuptools.package-data]
-"fmtr.dns" = ["pyproject.toml"]
+"fmtr.dns" = ["pyproject.package.toml"]
 
 [tool.uv.sources.corio]
 path = "../corio"
