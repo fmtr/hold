@@ -142,3 +142,7 @@ cython_debug/
 **/artifacts
 **/.idea
 /data/
+**/.secrets/**
+!**/.secrets/
+!**/.secrets/**/
+!**/.secrets/**/*.black.yml

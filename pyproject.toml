@@ -1,3 +1,60 @@
 [build-system]
-requires = ["corio[setup,debug]"]
-build-backend = "setuptools.build_meta" #
+requires = ["setuptools>=82", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.corio.metadata]
+version = "0.0.21"
+port = 4
+base = "python"
+description = "Homelab AdBlocking DNS Server"
+org_github = "fmtr"
+org_friendly = "Frontmatter AI"
+is_client = false
+scripts = ["install-ys"]
+services = []
+keywords = []
+is_pypi = false
+is_dockerhub = false
+
+[[tool.corio.metadata.docs.nav]]
+Home = "index.md"
+
+[[tool.corio.metadata.docs.nav]]
+Changelog = "changelog/"
+
+[tool.corio.metadata.setup]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fmtr.dns*"]
+namespaces = true
+
+[tool.setuptools.package-data]
+"fmtr.dns" = ["pyproject.toml"]
+
+[tool.uv.sources.corio]
+path = "../corio"
+editable = true
+
+[project]
+name = "fmtr.dns"
+version = "0.0.21"
+description = "Homelab AdBlocking DNS Server"
+readme = "README.md"
+license = "Apache-2.0"
+keywords = []
+requires-python = ">=3.13"
+dependencies = ["corio[dev]"]
+
+[[project.authors]]
+name = "Frontmatter AI"
+email = "innovative.fowler@mask.pro.fmtr.dev"
+
+[project.urls]
+Homepage = "https://github.com/fmtr/dns"
+
+[project.scripts]
+fmtr-dns = "fmtr.dns.entrypoint:main"
