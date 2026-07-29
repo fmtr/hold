@@ -1,14 +1,22 @@
 import asyncio
+from functools import cached_property
 
 import corio
-from corio import sets
+from corio import caching, sets, Path
+
 from fmtr.dns.paths import paths
 from fmtr.dns.proxy import AdBlockDoHProxy
 
 
+
 class Settings(sets.Base):
     paths = paths
+    cache: Path|None=paths.cache
     server: AdBlockDoHProxy
+
+    @cached_property
+    def disk(self):
+        return caching.Disk(self.cache)
 
     def run(self):
         super().run()
@@ -18,6 +26,9 @@ class Settings(sets.Base):
         from fmtr.dns.obs import logger
         from fmtr.dns.paths import paths
 
+        self.server.rewriter.blocklist.bind_disk(self.disk)
+        self.server.rewriter.refresh_blocklist()
+
         logger.info(f'Launching {paths.name_ns} {paths.metadata.version=} {corio.get_version()=} from entrypoint.')
         logger.debug(f'{paths.settings.exists()=} {str(paths.settings)=}')
 
@@ -25,6 +36,7 @@ class Settings(sets.Base):
         from fmtr.dns.api import DNS
 
         asyncio.run(DNS.start(settings.server))
+
 
 
 settings = Settings()

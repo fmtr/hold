@@ -2,9 +2,6 @@ from datetime import timedelta
 
 from corio import caching
 from fmtr.dns.obs import logger
-from fmtr.dns.paths import paths
-
-disk = caching.Disk(paths.cache)
 
 
 class CacheDNS(caching.TLRU):

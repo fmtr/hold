@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
-from corio import https
-from fmtr.dns.caching import disk
+from corio import caching, https
 from fmtr.dns.obs import logger
 
 
@@ -12,19 +11,18 @@ class BlockList:
     url: str
     limit: int = 0
 
+    def bind_disk(self, disk: caching.Disk):
+        object.__setattr__(self, 'disk', disk)
+        object.__setattr__(self, 'refresh', disk.memoize()(self._refresh))
+
     @logger.instrument('Clearing cache...')
     def reset(self):
-        key = self.refresh.__cache_key__(self)
-        if key in disk:
-            del disk[key]
+        key = self.refresh.__cache_key__()
+        if key in self.disk:
+            del self.disk[key]
 
-    @disk.memoize()
     @logger.instrument('Refreshing blocklist...')
-    def refresh(self):
-        """
-
-
-        """
+    def _refresh(self):
         response = https.client.get(self.url)
         response.raise_for_status()
         text = response.text
@@ -57,6 +55,7 @@ class BlockList:
 
 if __name__ == '__main__':
     bl = BlockList(url='https://small.oisd.nl/rpz')
+    bl.bind_disk(caching.Disk('/tmp/blocklist-cache'))
     doms = bl.refresh()
     bl.reset()
     doms

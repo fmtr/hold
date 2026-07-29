@@ -1,3 +1,4 @@
+import typing
 from dataclasses import dataclass
 from typing import Self, List
 
@@ -78,12 +79,6 @@ class TransformerDNS(corio.patterns.Transformer):
     blocklist: BlockList
 
     def __post_init__(self):
-        """
-
-        Add blocklist rule
-
-        """
-        self.add_blocklist()
         super().__post_init__()
 
     def refresh_blocklist(self):
