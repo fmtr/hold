@@ -1,3 +1,3 @@
-from corio import sets
+from corio import path
 
-paths = sets.PackagePaths()
+paths = path.PackagePaths()
