@@ -9,7 +9,7 @@ from fmtr.dns.proxy import AdBlockDoHProxy
 
 
 
-class Settings(sets.Base):
+class Settings(sets.Base,cli_parse_args=True):
     paths = paths
     cache: Path|None=paths.cache
     server: AdBlockDoHProxy
