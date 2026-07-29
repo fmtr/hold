@@ -3,7 +3,7 @@ requires = ["setuptools>=82", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.corio.metadata]
-version = "0.0.22-alpha000"
+version = "0.0.22-alpha001"
 port = 4
 base = "python"
 description = "Homelab AdBlocking DNS Server"
@@ -46,13 +46,13 @@ env_list = []
 
 [project]
 name = "fmtr.dns"
-version = "0.0.22-alpha000"
+version = "0.0.22-alpha001"
 description = "Homelab AdBlocking DNS Server"
 readme = "README.md"
 license = "Apache-2.0"
 keywords = []
 requires-python = ">=3.14"
-dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.6.1"]
+dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.6.2"]
 
 [[project.authors]]
 name = "Frontmatter AI"
