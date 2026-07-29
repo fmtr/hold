@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from corio import http
+from corio import https
 from fmtr.dns.caching import disk
 from fmtr.dns.obs import logger
 
@@ -25,7 +25,7 @@ class BlockList:
 
 
         """
-        response = http.client.get(self.url)
+        response = https.client.get(self.url)
         response.raise_for_status()
         text = response.text
 

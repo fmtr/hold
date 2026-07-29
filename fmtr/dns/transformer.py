@@ -3,7 +3,7 @@ from typing import Self, List
 
 import corio
 from corio import dns
-from corio.dns_tools.client import Plain
+from corio.dns.client import Plain
 from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
 from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
