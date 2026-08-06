@@ -3,7 +3,7 @@ requires = ["setuptools>=82", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.corio.metadata]
-version = "0.0.22-alpha004"
+version = "0.0.22-alpha005"
 port = 4
 base = "python"
 description = "Homelab AdBlocking DNS Server"
@@ -40,19 +40,25 @@ editable = true
 
 [tool.tox]
 requires = ["tox>=4.22", "tox-uv>=1"]
-env_list = []
+env_list = ["fmtr.dns"]
 
-[tool.tox.env]
+[tool.tox.env."fmtr.dns"]
+description = "Run fmtr.dns tests."
+deps = ["pytest", "pytest-asyncio"]
+commands = [["python", "-m", "pytest", "-q", "fmtr/dns/tests"]]
 
 [project]
 name = "fmtr.dns"
-version = "0.0.22-alpha004"
+version = "0.0.22-alpha005"
 description = "Homelab AdBlocking DNS Server"
 readme = "README.md"
 license = "Apache-2.0"
 keywords = []
 requires-python = ">=3.14"
-dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.6.3"]
+dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.6.4-alpha009"]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-asyncio"]
 
 [[project.authors]]
 name = "Frontmatter AI"
