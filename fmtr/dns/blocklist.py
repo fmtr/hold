@@ -1,12 +1,30 @@
 from dataclasses import dataclass
+from functools import cached_property
+
+from httpx_retries import Retry
 
 from corio import caching, https
 from fmtr.dns.obs import logger
 
 
+class HTTPClientBlocklist(https.Client):
+    TIMEOUT = 5
+
+    @cached_property
+    def retry(self):
+        return Retry(
+            total=1,
+            allowed_methods={'GET'},
+            backoff_factor=0.25,
+            max_backoff_wait=1,
+            respect_retry_after_header=False,
+        )
+
+
 @dataclass(frozen=True)
 class BlockList:
     SPECIALS = ('$', '@', '*', ' ', ';', 'NS')
+    CLIENT = HTTPClientBlocklist()
 
     url: str
     limit: int = 0
@@ -23,7 +41,7 @@ class BlockList:
 
     @logger.instrument('Refreshing blocklist...')
     def _refresh(self):
-        response = https.client.get(self.url)
+        response = self.CLIENT.get(self.url)
         response.raise_for_status()
         text = response.text
 

@@ -10,7 +10,7 @@ class Upstreams(patterns.Transformer):
     items: List[RuleUpstream]
     default: dns.client.HTTP
 
-    def resolve(self, exchange: dns.dm.Exchange):
+    async def resolve(self, exchange: dns.dm.Exchange):
         """
 
         Select the appropriate upstream resolver based on the question plus rules
@@ -19,4 +19,9 @@ class Upstreams(patterns.Transformer):
 
         key = KeyDNS.from_exchange(exchange)
         upstream = self.get(key)
-        return upstream.resolve(exchange)
+        return await upstream.resolve(exchange)
+
+    async def aclose(self):
+        await self.default.aclose()
+        for item in self.items:
+            await item.target.aclose()

@@ -81,10 +81,12 @@ class TransformerDNS(corio.patterns.Transformer):
     def __post_init__(self):
         super().__post_init__()
 
-    def refresh_blocklist(self):
-        self.blocklist.reset()
-        self.add_blocklist()
+    def refresh_blocklist(self, *, clear=False):
+        if clear:
+            self.blocklist.reset()
+        domains = self.add_blocklist()
         self.compile(clear=True)
+        return len(domains)
 
     def add_blocklist(self):
 
@@ -92,7 +94,7 @@ class TransformerDNS(corio.patterns.Transformer):
             domains = self.blocklist.refresh()
         except Exception as exception:
             logger.error(f'Error refreshing blocklist. Skipping to allow start-up: {repr(exception)}')
-            return
+            return []
 
         logger.info(f'Blocklist loaded: {len(domains)=}')
 
@@ -112,3 +114,4 @@ class TransformerDNS(corio.patterns.Transformer):
 
         self.items = [item for item in self.items if type(item) is not RuleBlocklistDNS]  # Bit goofy, but only way to pop out just the blocklist rule.
         self.items.append(rule)
+        return domains

@@ -66,6 +66,8 @@ class AdBlockDoHProxy(dns.proxy.Proxy):
         if key_in is not key_out:  # TODO: Add whole rewrite chain as RRSets
             rrset = key_out.to_rrset(exchange.request.name)
             exchange.answers_pre.append(rrset)
+            if key_out.records != 'CNAME':
+                self.finalize(exchange)
 
         return
 

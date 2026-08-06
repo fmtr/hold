@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from functools import cached_property
 
-from corio import api
+from corio import api, env
 from corio.constants import Constants
 from fmtr.dns.obs import logger
 from fmtr.dns.paths import paths
@@ -12,7 +12,7 @@ from fmtr.dns.paths import paths
 class DNS(api.Base):
     TITLE = paths.name_ns
     URL_DOCS = '/'
-    PORT = api.Base.PORT + paths.metadata.port
+    PORT = api.Base.PORT + paths.metadata.port + (1000*int(env.IS_DEV))
 
     def __init__(self, dns_server):
         super().__init__()
@@ -31,12 +31,19 @@ class DNS(api.Base):
         logger.info(self.message)
         await self.server.serve()
 
+    async def load_blocklist(self) -> int:
+        """Load the cached blocklist only after DNS is available for cold starts."""
+        await self.dns_server.wait_started()
+        with logger.span(f'Loading blocklist...'):
+            return await asyncio.to_thread(self.dns_server.rewriter.refresh_blocklist)
+
     @classmethod
     async def start(cls, server):
         self = cls(server)
         await asyncio.gather(
             self.launch(),
             self.dns_server.start(),
+            self.load_blocklist(),
         )
 
 
@@ -96,8 +103,10 @@ class RefreshBlocklist(PostEndpoint):
 
     async def run(self) -> int:
         with logger.span(f'Refreshing blocklist...'):
-            self.api.dns_server.rewriter.refresh_blocklist()
-            length = len(self.api.dns_server.rewriter.blocklist.refresh())
+            length = await asyncio.to_thread(
+                self.api.dns_server.rewriter.refresh_blocklist,
+                clear=True,
+            )
             self.api.dns_server.cache.clear()
 
         return length

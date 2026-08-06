@@ -27,7 +27,6 @@ class Settings(sets.Base,cli_parse_args=True):
         from fmtr.dns.paths import paths
 
         self.server.rewriter.blocklist.bind_disk(self.disk)
-        self.server.rewriter.refresh_blocklist()
 
         logger.info(f'Launching {paths.name_ns} {paths.metadata.version=} {corio.get_version()=} from entrypoint.')
         logger.debug(f'{paths.settings.exists()=} {str(paths.settings)=}')
@@ -35,7 +34,10 @@ class Settings(sets.Base,cli_parse_args=True):
         logger.info(f'Launching server...')
         from fmtr.dns.api import DNS
 
-        asyncio.run(DNS.start(settings.server))
+        try:
+            asyncio.run(DNS.start(settings.server))
+        except KeyboardInterrupt:
+            logger.info(f'Closed {paths.name_ns}.')
 
 
 
