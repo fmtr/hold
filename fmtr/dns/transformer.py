@@ -1,18 +1,16 @@
-import typing
 from dataclasses import dataclass
 from typing import Self, List
 
-import corio
-from corio import dns
+from corio import dns, patterns as patterns_corio
 from corio.dns.client import Plain
 from fmtr.dns import patterns
 from fmtr.dns.blocklist import BlockList
-from fmtr.dns.constants import BLACKHOLE, ANSWER_PRE_TTL, SUBDOMAINS
+from fmtr.dns.constants import ANSWER_PRE_TTL
 from fmtr.dns.obs import logger
 
 
 @dataclass
-class KeyDNS(corio.patterns.Key):
+class KeyDNS(patterns_corio.Key):
     """
 
     Key for transforming an RRSet using a set of rules
@@ -57,14 +55,9 @@ class KeyDNS(corio.patterns.Key):
 
 
 @dataclass
-class RuleDNS(corio.patterns.Item):
+class RuleDNS(patterns_corio.Item):
     source: KeyDNS
     target: KeyDNS | str
-
-
-@dataclass
-class RuleBlocklistDNS(RuleDNS):
-    ...
 
 
 @dataclass
@@ -74,7 +67,7 @@ class RuleUpstream(RuleDNS):
 
 
 @dataclass
-class TransformerDNS(corio.patterns.Transformer):
+class TransformerDNS(patterns_corio.Transformer):
     items: List[RuleDNS]
     blocklist: BlockList
 
@@ -84,34 +77,19 @@ class TransformerDNS(corio.patterns.Transformer):
     def refresh_blocklist(self, *, clear=False):
         if clear:
             self.blocklist.reset()
-        domains = self.add_blocklist()
-        self.compile(clear=True)
-        return len(domains)
-
-    def add_blocklist(self):
 
         try:
             domains = self.blocklist.refresh()
         except Exception as exception:
             logger.error(f'Error refreshing blocklist. Skipping to allow start-up: {repr(exception)}')
-            return []
+            return 0
 
         logger.info(f'Blocklist loaded: {len(domains)=}')
+        return len(domains)
 
-        patterns = [corio.patterns.re.escape(domain) for domain in domains]
-        pattern = corio.patterns.alt(*patterns)
-        pattern = f'{SUBDOMAINS}{pattern}'
+    def get_one(self, key: KeyDNS):
+        value = self.blocklist.get(key)
+        if value is not key:
+            return value
 
-        key = KeyDNS(
-            name=pattern,
-            records='AAAA|CNAME|A'
-        )
-
-        rule = RuleBlocklistDNS(
-            source=key,
-            target=BLACKHOLE,
-        )
-
-        self.items = [item for item in self.items if type(item) is not RuleBlocklistDNS]  # Bit goofy, but only way to pop out just the blocklist rule.
-        self.items.append(rule)
-        return domains
+        return super().get_one(key)
