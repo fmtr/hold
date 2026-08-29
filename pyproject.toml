@@ -3,7 +3,7 @@ requires = ["setuptools>=82", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.corio.metadata]
-version = "0.1.1"
+version = "0.1.2"
 port = 4
 base = "python"
 description = "A small, rule-driven DNS server for home labs"
@@ -40,7 +40,7 @@ commands = [["python", "-m", "pytest", "-q", "hold/tests"]]
 
 [project]
 name = "hold"
-version = "0.1.1"
+version = "0.1.2"
 description = "A small, rule-driven DNS server for home labs"
 readme = "README.md"
 license = "Apache-2.0"
