@@ -665,18 +665,17 @@ working directory as <code>settings.yaml</code>. At minimum, check the server ad
 replace the example local resolver addresses with resolvers reachable from your
 network.</p>
 <h2 id="run">Run</h2>
-<p>Install <code>hold</code> into an environment with Python 3.14 or newer:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">pip install hold</span>
-<span class="go">hold --config ./settings.yaml</span>
-</code></pre></div>
-<p>With <code>uv</code>, installation and launch can be a single command:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">uv run --with hold hold --config ./settings.yaml</span>
+<p><code>hold</code> requires Python 3.14 or newer. Until it is available from PyPI, use the
+<a href="https://github.com/fmtr/hold/releases/latest">latest GitHub release</a>. With
+<a href="https://docs.astral.sh/uv/">uv</a>, installation and launch from the <code>v0.1.1</code> Git
+tag is a single command:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml</span>
 </code></pre></div>
 <p><code>hold</code> listens for DNS queries on <code>server.host</code> and <code>server.port</code>. DNS uses port
 53 by default, which normally requires additional privileges. See
 <a href="../settings/#running-on-port-53">Running on port 53</a>, or override the configured
 port for an initial test. The <code>--server</code> value is merged over the YAML settings:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
 </code></pre></div>
 <p>Query it with <code>dig</code>:</p>
 <div class="language-console highlight"><pre><span></span><code><span class="go">dig @127.0.0.1 -p 5353 api.service A</span>

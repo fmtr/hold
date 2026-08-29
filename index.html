@@ -297,10 +297,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-and-run" class="md-nav__link">
+  <a href="#run-from-github" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install and run
+        Run from GitHub
       
     </span>
   </a>
@@ -637,10 +637,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-and-run" class="md-nav__link">
+  <a href="#run-from-github" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install and run
+        Run from GitHub
       
     </span>
   </a>
@@ -730,14 +730,11 @@ single <code>hold</code> rule can map <code>{domain}.service.</code> to <code>{d
 captured label, pass the result through further rules, and choose a resolver from
 the transformed name. Blocking participates in the same recursive pipeline, so
 a rewrite that eventually reaches a blocked domain is blocked too.</p>
-<h2 id="install-and-run">Install and run</h2>
-<p><code>hold</code> requires Python 3.14 or newer. Install it from PyPI:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">pip install hold</span>
-<span class="go">hold --config ./settings.yaml</span>
-</code></pre></div>
-<p>Or run it without a permanent installation using
-<a href="https://docs.astral.sh/uv/">uv</a>:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">uv run --with hold hold --config ./settings.yaml</span>
+<h2 id="run-from-github">Run from GitHub</h2>
+<p><code>hold</code> requires Python 3.14 or newer. Until the package is available from PyPI,
+use the <a href="https://github.com/fmtr/hold/releases/latest">latest GitHub release</a>.
+With <a href="https://docs.astral.sh/uv/">uv</a>, run <code>v0.1.1</code> directly from its Git tag:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml</span>
 </code></pre></div>
 <p>Copy <a href="docs/settings.example.yaml">the example settings file</a>, adjust the listen
 address and upstream resolvers for your network, then point a test client at the
@@ -751,7 +748,7 @@ upward until the next reboot with:</p>
 <p>Running <code>hold</code> with <code>sudo</code> also works, but running the whole service as root is
 not recommended. For an initial test, leave the settings file unchanged and
 override its port from the command line:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
 </code></pre></div>
 <h2 id="rewrite-rules-at-a-glance">Rewrite rules at a glance</h2>
 <p>Sources are regular-expression patterns. <code>{SUBDOMAIN}</code> captures one label and
