@@ -1,0 +1,43 @@
+server:
+  host: 127.0.0.1
+  port: 53
+
+  rewriter:
+    is_recursive: true
+    blocklist:
+      url: https://small.oisd.nl/rpz
+      limit: 100
+    items:
+      - source:
+          name: '{SUBDOMAIN}\.service\.'
+          records: 'A|AAAA|CNAME'
+        target:
+          name: '{SUBDOMAIN}.lan.'
+          records: CNAME
+
+      - source:
+          name: '{SUBDOMAIN}\.lan\.'
+          records: 'A|AAAA|CNAME'
+        target:
+          name: 192.168.1.10
+          records: A
+
+      - source:
+          name: 'ads\.example\.'
+          records: 'A|AAAA|CNAME'
+        target: BLACKHOLE
+
+  client:
+    default:
+      url: 'https://{host}/dns-query'
+      host: dns.google
+
+    items:
+      - source:
+          name: '{SUBDOMAINS}lan\.'
+          records: 'A|AAAA|CNAME|PTR'
+        target:
+          host: 192.168.1.1
+          ttl_min: 0
+          ttl_defaults:
+            nxdomain: 0

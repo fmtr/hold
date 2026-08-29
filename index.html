@@ -6,13 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Homelab AdBlocking DNS Server">
+        <meta name="description" content="A small, rule-driven DNS server for home labs">
       
       
       
       
       
-        <link rel="next" href="changelog/0.0.0/">
+        <link rel="next" href="api/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>fmtr.dns</title>
+        <title>hold</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#fmtrdns" class="md-skip">
+        <a href="#hold-home-lab-dns" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="fmtr.dns" class="md-header__button md-logo" aria-label="fmtr.dns" data-md-component="logo">
+    <a href="." title="hold" class="md-header__button md-logo" aria-label="hold" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            fmtr.dns
+            hold
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -160,13 +160,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/fmtr/fmtr.dns" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/fmtr/hold" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
-    fmtr/fmtr.dns
+    fmtr/hold
   </div>
 </a>
       </div>
@@ -196,23 +196,23 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="fmtr.dns" class="md-nav__button md-logo" aria-label="fmtr.dns" data-md-component="logo">
+    <a href="." title="hold" class="md-nav__button md-logo" aria-label="hold" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    fmtr.dns
+    hold
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/fmtr/fmtr.dns" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/fmtr/hold" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
-    fmtr/fmtr.dns
+    fmtr/hold
   </div>
 </a>
     </div>
@@ -235,6 +235,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -252,6 +270,215 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#should-i-use-this-instead-of-pi-hole-or-adguard-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Should I use this instead of Pi-hole or AdGuard Home?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rewrite-rules-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rewrite rules at a glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="blocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rewrite-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursive Rewrite Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -267,6 +494,8 @@
       
         
       
+        
+      
     
     
     
@@ -275,10 +504,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -296,8 +525,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -322,6 +551,34 @@
     
   
     0.0.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/0.1.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.1.1
   
 
     
@@ -362,6 +619,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#should-i-use-this-instead-of-pi-hole-or-adguard-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Should I use this instead of Pi-hole or AdGuard Home?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rewrite-rules-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rewrite rules at a glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -380,11 +700,83 @@
   
 
 
-<div class="admonition tip">
-<p class="admonition-title">How Do I Get Started?</p>
-<p>See the project README.</p>
+<div class="admonition warning">
+<p class="admonition-title">For home labs</p>
+<p><code>hold</code> is an experimental home-lab service, not a hardened or
+high-availability production DNS server.</p>
 </div>
-<h1 id="fmtrdns"><code>fmtr.dns</code></h1>
+<h1 id="hold-home-lab-dns"><code>hold</code>: HOme Lab DNS</h1>
+<p><code>hold</code> is a small, ad-blocking DNS server for home labs. It forwards ordinary
+queries to DNS-over-HTTPS or local DNS resolvers, caches responses, and exposes
+a small HTTP API for clearing the cache, refreshing the blocklist, and toggling
+blocking.</p>
+<p>The distinctive part is its rule-driven transformer. Rules match both DNS names
+and record types, capture reusable parts of a name, and construct a new DNS
+answer from those captures. Rewrites can be recursive, so the output of one rule
+can become the input to another:</p>
+<div class="language-text highlight"><pre><span></span><code>api.service.  --rewrite--&gt;  api.lan.  --rewrite--&gt;  192.168.1.10
+printer.vpn.  --rewrite--&gt;  printer.example.net.  --route--&gt;  private DNS
+ads.example.  --rewrite--&gt;  BLACKHOLE
+</code></pre></div>
+<p>That makes <code>hold</code> useful when a home network has several naming schemes, split
+DNS, overlay-network names, or local services that should resolve without
+maintaining every hostname individually.</p>
+<h2 id="should-i-use-this-instead-of-pi-hole-or-adguard-home">Should I use this instead of Pi-hole or AdGuard Home?</h2>
+<p>Probably not if you mainly want a polished DNS appliance. Pi-hole and AdGuard
+Home are considerably more mature, have friendly administration interfaces, and
+are better choices for most networks.</p>
+<p><code>hold</code> exists for cases where their record-rewrite systems are too limited. A
+single <code>hold</code> rule can map <code>{domain}.service.</code> to <code>{domain}.lan.</code>, retain the
+captured label, pass the result through further rules, and choose a resolver from
+the transformed name. Blocking participates in the same recursive pipeline, so
+a rewrite that eventually reaches a blocked domain is blocked too.</p>
+<h2 id="install-and-run">Install and run</h2>
+<p><code>hold</code> requires Python 3.14 or newer. Install it from PyPI:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">pip install hold</span>
+<span class="go">hold --config ./settings.yaml</span>
+</code></pre></div>
+<p>Or run it without a permanent installation using
+<a href="https://docs.astral.sh/uv/">uv</a>:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uv run --with hold hold --config ./settings.yaml</span>
+</code></pre></div>
+<p>Copy <a href="docs/settings.example.yaml">the example settings file</a>, adjust the listen
+address and upstream resolvers for your network, then point a test client at the
+configured port. <code>hold</code> is intended for trusted home-lab networks, not exposed or
+high-availability production infrastructure.</p>
+<p>DNS normally uses port 53, which most operating systems reserve for privileged
+processes. On Linux, you can allow unprivileged processes to bind from port 53
+upward until the next reboot with:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">sudo sysctl -w net.ipv4.ip_unprivileged_port_start=53</span>
+</code></pre></div>
+<p>Running <code>hold</code> with <code>sudo</code> also works, but running the whole service as root is
+not recommended. For an initial test, leave the settings file unchanged and
+override its port from the command line:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
+</code></pre></div>
+<h2 id="rewrite-rules-at-a-glance">Rewrite rules at a glance</h2>
+<p>Sources are regular-expression patterns. <code>{SUBDOMAIN}</code> captures one label and
+<code>{SUBDOMAINS}</code> captures one or more labels; captured values can be inserted into
+the target:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">rewriter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">is_recursive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{SUBDOMAIN}\.service\.&#39;</span><span class="p p-Indicator">,</span><span class="nt"> records</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;A|AAAA|CNAME&#39;</span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{SUBDOMAIN}.lan.&#39;</span><span class="p p-Indicator">,</span><span class="nt"> records</span><span class="p">:</span><span class="w"> </span><span class="nv">CNAME</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{SUBDOMAIN}\.lan\.&#39;</span><span class="p p-Indicator">,</span><span class="nt"> records</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;A|AAAA|CNAME&#39;</span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">192.168.1.10</span><span class="p p-Indicator">,</span><span class="nt"> records</span><span class="p">:</span><span class="w"> </span><span class="nv">A</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ads\.example\.&#39;</span><span class="p p-Indicator">,</span><span class="nt"> records</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;A|AAAA|CNAME&#39;</span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BLACKHOLE</span>
+</code></pre></div>
+<p>See the <a href="docs/rewrite-rules.md">rewrite guide</a> for matching, recursion, routing,
+and a larger example. See the <a href="docs/quick-start.md">quick start</a> and
+<a href="docs/settings.md">settings reference</a> for operation.</p>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li>Published documentation: https://fmtr.github.io/hold</li>
+<li>Documentation source: <a href="docs">docs</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p><code>hold</code> is licensed under Apache 2.0.</p>
 
 
 
