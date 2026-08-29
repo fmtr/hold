@@ -58,6 +58,25 @@ of its subdomains are blocked for `A`, `AAAA`, and `CNAME` records. Plain
 one-domain-per-line lists, hosts files, and Adblock Plus filter syntax are not
 currently supported.
 
+### How upstream answers are checked
+
+Blocking is not limited to the name in the original question. After an upstream
+resolver replies, `hold` examines every record set in the response's answer
+chain. If any individual answer matches the blocklist—or is recursively rewritten
+to `BLACKHOLE`—`hold` blocks the whole response and returns `NXDOMAIN`.
+
+For example, a query for an otherwise acceptable name might reveal a blocked
+tracker later in its CNAME chain:
+
+```text
+news.example.  CNAME  metrics.vendor.example.
+metrics.vendor.example.  A  192.0.2.10
+```
+
+If `metrics.vendor.example` is blocked, the second answer causes the complete
+response to be blocked. This prevents an allowed alias from being used to reach
+a blocked destination indirectly.
+
 The example uses the small [OISD](https://oisd.nl/) RPZ list:
 
 ```yaml
