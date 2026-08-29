@@ -1,4 +1,4 @@
-# `hold`
+# `hold`: HOme Lab DNS
 
 `hold` is a small, ad-blocking DNS server for home labs. It forwards ordinary
 queries to DNS-over-HTTPS or local DNS resolvers, caches responses, and exposes
