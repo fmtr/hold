@@ -15,21 +15,6 @@ keywords = ["dns", "ad blocking", "home lab", "rewrite", "dns over https"]
 is_pypi = true
 is_dockerhub = false
 
-[[tool.corio.metadata.docs.nav]]
-Home = "index.md"
-
-[[tool.corio.metadata.docs.nav]]
-"Quick Start" = "quick-start.md"
-
-[[tool.corio.metadata.docs.nav]]
-Settings = "settings.md"
-
-[[tool.corio.metadata.docs.nav]]
-"Rewrite Rules" = "rewrite-rules.md"
-
-[[tool.corio.metadata.docs.nav]]
-Changelog = "changelog/"
-
 [tool.corio.metadata.setup]
 
 [tool.setuptools.package-dir]
