@@ -9,7 +9,7 @@ network.
 
 ## Run
 
-Install Hold into an environment with Python 3.14 or newer:
+Install `hold` into an environment with Python 3.14 or newer:
 
 ```console
 pip install hold
@@ -22,17 +22,23 @@ With `uv`, installation and launch can be a single command:
 uv run --with hold hold --config ./settings.yaml
 ```
 
-Hold listens for DNS queries on `server.host` and `server.port`. Port 53 usually
-requires elevated privileges, so the example uses port 5354 for initial testing.
+`hold` listens for DNS queries on `server.host` and `server.port`. DNS uses port
+53 by default, which normally requires additional privileges. See
+[Running on port 53](settings.md#running-on-port-53), or override the configured
+port for an initial test. The `--server` value is merged over the YAML settings:
+
+```console
+hold --config ./settings.yaml --server '{"port":5353}'
+```
 
 Query it with `dig`:
 
 ```console
-dig @127.0.0.1 -p 5354 api.service A
+dig @127.0.0.1 -p 5353 api.service A
 ```
 
 Once the configuration works, point a router, local DNS forwarder, or selected
-clients at Hold. Binding directly to port 53 and installing Hold as a service are
+clients at `hold`. Binding directly to port 53 and installing `hold` as a service are
 host-specific deployment tasks.
 
 ## Next steps

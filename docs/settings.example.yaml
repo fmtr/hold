@@ -1,6 +1,6 @@
 server:
   host: 127.0.0.1
-  port: 5354
+  port: 53
 
   rewriter:
     is_recursive: true

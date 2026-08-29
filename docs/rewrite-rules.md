@@ -1,6 +1,6 @@
 # Recursive Rewrite Rules
 
-Hold treats a DNS question as a pair: its fully qualified name and requested
+`hold` treats a DNS question as a pair: its fully qualified name and requested
 record type. Each rule has a source pattern for that pair and either a new pair
 or the special target `BLACKHOLE`.
 
@@ -14,7 +14,7 @@ for rule in rules:
 return input
 ```
 
-With `is_recursive: true`, Hold feeds each result back into the same transformer
+With `is_recursive: true`, `hold` feeds each result back into the same transformer
 until no rule changes it:
 
 ```text
