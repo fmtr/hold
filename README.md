@@ -32,20 +32,14 @@ captured label, pass the result through further rules, and choose a resolver fro
 the transformed name. Blocking participates in the same recursive pipeline, so
 a rewrite that eventually reaches a blocked domain is blocked too.
 
-## Install and run
+## Run from GitHub
 
-`hold` requires Python 3.14 or newer. Install it from PyPI:
-
-```console
-pip install hold
-hold --config ./settings.yaml
-```
-
-Or run it without a permanent installation using
-[uv](https://docs.astral.sh/uv/):
+`hold` requires Python 3.14 or newer. Until the package is available from PyPI,
+use the [latest GitHub release](https://github.com/fmtr/hold/releases/latest).
+With [uv](https://docs.astral.sh/uv/), run `v0.1.1` directly from its Git tag:
 
 ```console
-uv run --with hold hold --config ./settings.yaml
+uvx --no-sources --from "git+https://github.com/fmtr/hold.git@v0.1.1" hold --config ./settings.yaml
 ```
 
 Copy [the example settings file](docs/settings.example.yaml), adjust the listen
@@ -66,7 +60,7 @@ not recommended. For an initial test, leave the settings file unchanged and
 override its port from the command line:
 
 ```console
-hold --config ./settings.yaml --server '{"port":5353}'
+uvx --no-sources --from "git+https://github.com/fmtr/hold.git@v0.1.1" hold --config ./settings.yaml --server '{"port":5353}'
 ```
 
 ## Rewrite rules at a glance
