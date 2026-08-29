@@ -43,6 +43,35 @@ temporarily change only the DNS port:
 hold --config ./settings.yaml --server '{"port":5353}'
 ```
 
+## Blocklists
+
+`hold` supports DNS Response Policy Zone (RPZ) blocklists served over HTTP or
+HTTPS. Each usable line must contain exactly three whitespace-separated fields,
+such as:
+
+```text
+ads.example CNAME .
+```
+
+The first field is treated as the blocked domain. Queries for that domain or any
+of its subdomains are blocked for `A`, `AAAA`, and `CNAME` records. Plain
+one-domain-per-line lists, hosts files, and Adblock Plus filter syntax are not
+currently supported.
+
+The example uses the small [OISD](https://oisd.nl/) RPZ list:
+
+```yaml
+blocklist:
+  url: https://small.oisd.nl/rpz
+  limit: 100
+```
+
+OISD also publishes a larger list at `https://big.oisd.nl/rpz`; its website
+describes the available variants and policies. Set `limit: 0` to load the entire
+selected list. Downloads are cached on disk, loaded at startup, and can be
+forcibly re-downloaded through the HTTP control API. Start with a small limit while
+checking memory use, lookup behaviour, and false positives on your network.
+
 ## Running on port 53
 
 The example uses the standard DNS port, 53. Linux normally prevents unprivileged
