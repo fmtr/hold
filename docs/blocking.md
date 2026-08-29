@@ -39,17 +39,18 @@ resolver replies, `hold` examines every record set in the response's answer
 chain. If any individual answer matches the blocklist—or is recursively
 rewritten to `BLACKHOLE`—`hold` blocks the whole response and returns `NXDOMAIN`.
 
-For example, a query for an otherwise acceptable name might reveal a blocked
-tracker later in its CNAME chain:
+For example, both the requested name and final host might be acceptable while a
+blocked tracker appears only in the middle of the CNAME chain:
 
 ```text
-news.example.  CNAME  metrics.vendor.example.
-metrics.vendor.example.  A  192.0.2.10
+news.example.             CNAME  tracker.bad.example.
+tracker.bad.example.      CNAME  content.cdn.example.
+content.cdn.example.      A      192.0.2.10
 ```
 
-If `metrics.vendor.example` is blocked, the second answer causes the complete
-response to be blocked. This prevents an allowed alias from being used to reach
-a blocked destination indirectly.
+If `tracker.bad.example` is blocked, the middle answer causes the complete
+response to be blocked. A naive check of only `news.example` or the terminal
+`content.cdn.example` answer would miss it.
 
 ## Explicit blocking rules
 
