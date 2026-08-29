@@ -5,8 +5,8 @@ from functools import cached_property
 
 from corio import api, env
 from corio.constants import Constants
-from fmtr.dns.obs import logger
-from fmtr.dns.paths import paths
+from hold.obs import logger
+from hold.paths import paths
 
 
 class DNS(api.Base):

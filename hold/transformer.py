@@ -3,10 +3,10 @@ from typing import Self, List
 
 from corio import dns, patterns as patterns_corio
 from corio.dns.client import Plain
-from fmtr.dns import patterns
-from fmtr.dns.blocklist import BlockList
-from fmtr.dns.constants import ANSWER_PRE_TTL
-from fmtr.dns.obs import logger
+from hold import patterns
+from hold.blocklist import BlockList
+from hold.constants import ANSWER_PRE_TTL
+from hold.obs import logger
 
 
 @dataclass

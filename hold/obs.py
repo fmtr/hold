@@ -1,5 +1,5 @@
 from corio import logs, debug, Constants
-from fmtr.dns.paths import paths
+from hold.paths import paths
 
 debug.trace()
 

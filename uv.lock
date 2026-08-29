@@ -123,7 +123,7 @@ wheels = [
 
 [[package]]
 name = "corio"
-version = "2.6.4a9"
+version = "2.8.22"
 source = { editable = "../corio" }
 
 [package.optional-dependencies]
@@ -268,12 +268,14 @@ requires-dist = [
     { name = "httpx", marker = "extra == 'api'" },
     { name = "httpx", marker = "extra == 'api-mcp'" },
     { name = "httpx", marker = "extra == 'dev'" },
+    { name = "httpx", marker = "extra == 'dhcp'" },
     { name = "httpx", marker = "extra == 'dns'" },
     { name = "httpx", marker = "extra == 'http'" },
     { name = "httpx", marker = "extra == 'infra'" },
     { name = "httpx", marker = "extra == 'webhook'" },
     { name = "httpx-retries", marker = "extra == 'all'" },
     { name = "httpx-retries", marker = "extra == 'dev'" },
+    { name = "httpx-retries", marker = "extra == 'dhcp'" },
     { name = "httpx-retries", marker = "extra == 'dns'" },
     { name = "httpx-retries", marker = "extra == 'http'" },
     { name = "httpx-retries", marker = "extra == 'infra'" },
@@ -288,6 +290,7 @@ requires-dist = [
     { name = "logfire", marker = "extra == 'api-mcp'" },
     { name = "logfire", marker = "extra == 'cli'" },
     { name = "logfire", marker = "extra == 'dev'" },
+    { name = "logfire", marker = "extra == 'dhcp'" },
     { name = "logfire", marker = "extra == 'dns'" },
     { name = "logfire", marker = "extra == 'http'" },
     { name = "logfire", marker = "extra == 'infra'" },
@@ -303,6 +306,7 @@ requires-dist = [
     { name = "logfire", extras = ["fastapi"], marker = "extra == 'infra'" },
     { name = "logfire", extras = ["httpx"], marker = "extra == 'all'" },
     { name = "logfire", extras = ["httpx"], marker = "extra == 'dev'" },
+    { name = "logfire", extras = ["httpx"], marker = "extra == 'dhcp'" },
     { name = "logfire", extras = ["httpx"], marker = "extra == 'dns'" },
     { name = "logfire", extras = ["httpx"], marker = "extra == 'http'" },
     { name = "logfire", extras = ["httpx"], marker = "extra == 'infra'" },
@@ -355,8 +359,8 @@ requires-dist = [
     { name = "pandas", marker = "extra == 'tabular'" },
     { name = "peft", marker = "extra == 'ai'" },
     { name = "peft", marker = "extra == 'all'" },
-    { name = "playwright", marker = "extra == 'all'" },
-    { name = "playwright", marker = "extra == 'browsers'" },
+    { name = "playwright", marker = "extra == 'all'", specifier = "==1.61.0" },
+    { name = "playwright", marker = "extra == 'browsers'", specifier = "==1.61.0" },
     { name = "pycountry", marker = "extra == 'ai'" },
     { name = "pycountry", marker = "extra == 'ai-client'" },
     { name = "pycountry", marker = "extra == 'all'" },
@@ -527,7 +531,7 @@ requires-dist = [
     { name = "yamlscript", marker = "extra == 'yaml'", specifier = ">=0.2.20" },
     { name = "yamlscript", marker = "extra == 'yml'", specifier = ">=0.2.20" },
 ]
-provides-extras = ["compute", "dev", "test", "yml", "yaml", "logging", "parallel", "tokenization", "augmentation", "process", "profiling", "docker-client", "unicode", "version", "version-dev", "spaces", "netrc", "hfh", "merging", "api", "api-mcp", "dm", "ai", "openai-api", "ai-client", "json-fix", "semantic", "metrics", "tabular", "html", "interface", "google-api", "caching", "pdf", "debug", "sets", "path-app", "path-type", "dns", "patterns", "http", "setup", "webhook", "browsers", "db", "db-document", "db-search", "mqtt", "av", "env", "env-io", "toml", "toml-write", "ha", "ha-api", "doc", "youtube", "infra", "vcs", "tasmota", "encrypt", "secrets", "sec", "cli", "all"]
+provides-extras = ["compute", "dev", "test", "yml", "yaml", "logging", "parallel", "tokenization", "augmentation", "process", "profiling", "docker-client", "unicode", "version", "version-dev", "spaces", "netrc", "hfh", "merging", "api", "api-mcp", "dm", "ai", "openai-api", "ai-client", "json-fix", "semantic", "metrics", "tabular", "html", "interface", "google-api", "caching", "pdf", "debug", "sets", "path-app", "path-type", "dns", "dhcp", "patterns", "http", "setup", "webhook", "browsers", "db", "db-document", "db-search", "mqtt", "av", "env", "env-io", "toml", "toml-write", "ha", "ha-api", "doc", "youtube", "infra", "vcs", "tasmota", "encrypt", "secrets", "sec", "cli", "all"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -629,28 +633,6 @@ wheels = [
 ]
 
 [[package]]
-name = "fmtr-dns"
-version = "0.0.22a5"
-source = { editable = "." }
-dependencies = [
-    { name = "corio", extra = ["api", "caching", "debug", "dns", "http", "logging", "patterns", "sets", "version-dev", "yaml"] },
-]
-
-[package.optional-dependencies]
-test = [
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "corio", extras = ["api", "caching", "debug", "dns", "http", "logging", "patterns", "sets", "version-dev", "yaml"], editable = "../corio" },
-    { name = "pytest", marker = "extra == 'test'" },
-    { name = "pytest-asyncio", marker = "extra == 'test'" },
-]
-provides-extras = ["test"]
-
-[[package]]
 name = "googleapis-common-protos"
 version = "1.74.0"
 source = { registry = "https://pypi.org/simple" }
@@ -683,6 +665,28 @@ sdist = { url = "https://files.pythonhosted.org/packages/30/d4/a7d6fb3f58be99d65
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f6/df/5b14a118322d6097cb9bb30ec6bacad268e546a8ecfcb1f6d0de618dac2f/h2-4.4.0-py3-none-any.whl", hash = "sha256:6acffe1aeab79098d7eb0f8385c1add11f2c7a94815f6fa2b7060eeddee3d87c", size = 62368, upload-time = "2026-07-23T19:14:16.143Z" },
 ]
+
+[[package]]
+name = "hold"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "corio", extra = ["api", "caching", "debug", "dns", "http", "logging", "patterns", "sets", "version-dev", "yaml"] },
+]
+
+[package.optional-dependencies]
+test = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "corio", extras = ["api", "caching", "debug", "dns", "http", "logging", "patterns", "sets", "version-dev", "yaml"], editable = "../corio" },
+    { name = "pytest", marker = "extra == 'test'" },
+    { name = "pytest-asyncio", marker = "extra == 'test'" },
+]
+provides-extras = ["test"]
 
 [[package]]
 name = "hpack"

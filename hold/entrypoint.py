@@ -1,5 +1,5 @@
 def main():
-    from fmtr.dns.settings import settings
+    from hold.settings import settings
     return settings.run()
 
 

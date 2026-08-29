@@ -1,7 +1,7 @@
 from corio.caching import Disk
-from fmtr.dns.blocklist import BlockList
-from fmtr.dns.constants import BLACKHOLE
-from fmtr.dns.transformer import KeyDNS, RuleDNS, TransformerDNS
+from hold.blocklist import BlockList
+from hold.constants import BLACKHOLE
+from hold.transformer import KeyDNS, RuleDNS, TransformerDNS
 
 
 def test_blocklist_cache_key_includes_url_and_limit(tmp_path):

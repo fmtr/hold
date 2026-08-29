@@ -1,6 +1,7 @@
-!!! tip "How Do I Get Started?"
+!!! warning "For home labs"
 
-    See the project README.
+    Hold is an experimental home-lab service, not a hardened or
+    high-availability production DNS server.
 
 --8<--
 README.md

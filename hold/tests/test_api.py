@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from fmtr.dns.api import DNS, RefreshBlocklist
+from hold.api import DNS, RefreshBlocklist
 
 
 @pytest.mark.asyncio

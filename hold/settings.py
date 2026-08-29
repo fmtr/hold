@@ -4,8 +4,8 @@ from functools import cached_property
 import corio
 from corio import caching, sets, Path
 
-from fmtr.dns.paths import paths
-from fmtr.dns.proxy import AdBlockDoHProxy
+from hold.paths import paths
+from hold.proxy import AdBlockDoHProxy
 
 
 
@@ -23,8 +23,8 @@ class Settings(sets.Base,cli_parse_args=True):
 
         from corio import debug
         debug.trace()
-        from fmtr.dns.obs import logger
-        from fmtr.dns.paths import paths
+        from hold.obs import logger
+        from hold.paths import paths
 
         self.server.rewriter.blocklist.disk = self.disk
 
@@ -32,7 +32,7 @@ class Settings(sets.Base,cli_parse_args=True):
         logger.debug(f'{paths.settings.exists()=} {str(paths.settings)=}')
 
         logger.info(f'Launching server...')
-        from fmtr.dns.api import DNS
+        from hold.api import DNS
 
         try:
             asyncio.run(DNS.start(settings.server))

@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from functools import cached_property
 
 from corio import dns
-from fmtr.dns import caching
-from fmtr.dns.client import Upstreams
-from fmtr.dns.constants import BLACKHOLE
-from fmtr.dns.obs import logger
-from fmtr.dns.transformer import KeyDNS, TransformerDNS
+from hold import caching
+from hold.client import Upstreams
+from hold.constants import BLACKHOLE
+from hold.obs import logger
+from hold.transformer import KeyDNS, TransformerDNS
 
 Request, Response, Exchange = dns.dm.Request, dns.dm.Response, dns.dm.Exchange
 

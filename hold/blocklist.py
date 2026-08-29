@@ -3,8 +3,8 @@ from functools import cached_property
 from httpx_retries import Retry
 
 from corio import caching, https
-from fmtr.dns.constants import BLACKHOLE
-from fmtr.dns.obs import logger
+from hold.constants import BLACKHOLE
+from hold.obs import logger
 
 
 class HTTPClientBlocklist(https.Client):

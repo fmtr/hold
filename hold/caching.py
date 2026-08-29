@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from corio import caching
-from fmtr.dns.obs import logger
+from hold.obs import logger
 
 
 class CacheDNS(caching.TLRU):

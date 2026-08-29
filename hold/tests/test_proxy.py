@@ -2,8 +2,8 @@ import dns
 import pytest
 
 from corio.dns.dm import Exchange
-from fmtr.dns.proxy import AdBlockDoHProxy
-from fmtr.dns.transformer import KeyDNS
+from hold.proxy import AdBlockDoHProxy
+from hold.transformer import KeyDNS
 
 
 def make_exchange(name="hello.test.", record_type="A"):

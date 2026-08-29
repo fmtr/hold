@@ -6,17 +6,26 @@ build-backend = "setuptools.build_meta"
 version = "0.1.0"
 port = 4
 base = "python"
-description = "Homelab AdBlocking DNS Server"
+description = "A small, rule-driven DNS server for home labs"
 org_github = "fmtr"
 org_friendly = "Frontmatter AI"
 is_client = false
 services = []
-keywords = []
-is_pypi = false
+keywords = ["dns", "ad blocking", "home lab", "rewrite", "dns over https"]
+is_pypi = true
 is_dockerhub = false
 
 [[tool.corio.metadata.docs.nav]]
 Home = "index.md"
+
+[[tool.corio.metadata.docs.nav]]
+"Quick Start" = "quick-start.md"
+
+[[tool.corio.metadata.docs.nav]]
+Settings = "settings.md"
+
+[[tool.corio.metadata.docs.nav]]
+"Rewrite Rules" = "rewrite-rules.md"
 
 [[tool.corio.metadata.docs.nav]]
 Changelog = "changelog/"
@@ -28,11 +37,11 @@ Changelog = "changelog/"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["fmtr.dns*"]
-namespaces = true
+include = ["hold*"]
+namespaces = false
 
 [tool.setuptools.package-data]
-"fmtr.dns" = ["pyproject.package.toml", "assets/**"]
+hold = ["pyproject.package.toml", "assets/**"]
 
 [tool.uv.sources.corio]
 path = "../corio"
@@ -40,20 +49,20 @@ editable = true
 
 [tool.tox]
 requires = ["tox>=4.22", "tox-uv>=1"]
-env_list = ["fmtr.dns"]
+env_list = ["hold"]
 
-[tool.tox.env."fmtr.dns"]
-description = "Run fmtr.dns tests."
+[tool.tox.env.hold]
+description = "Run hold tests."
 deps = ["pytest", "pytest-asyncio"]
-commands = [["python", "-m", "pytest", "-q", "fmtr/dns/tests"]]
+commands = [["python", "-m", "pytest", "-q", "hold/tests"]]
 
 [project]
-name = "fmtr.dns"
+name = "hold"
 version = "0.1.0"
-description = "Homelab AdBlocking DNS Server"
+description = "A small, rule-driven DNS server for home labs"
 readme = "README.md"
 license = "Apache-2.0"
-keywords = []
+keywords = ["dns", "ad blocking", "home lab", "rewrite", "dns over https"]
 requires-python = ">=3.14"
 dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.8.21"]
 
@@ -65,7 +74,10 @@ name = "Frontmatter AI"
 email = "innovative.fowler@mask.pro.fmtr.dev"
 
 [project.urls]
-Homepage = "https://github.com/fmtr/fmtr.dns"
+Homepage = "https://github.com/fmtr/hold"
+Documentation = "https://fmtr.github.io/hold"
+Repository = "https://github.com/fmtr/hold"
+Issues = "https://github.com/fmtr/hold/issues"
 
 [project.scripts]
-fmtr-dns = "fmtr.dns.entrypoint:main"
+hold = "hold.entrypoint:main"
