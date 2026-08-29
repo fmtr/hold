@@ -44,5 +44,6 @@ host-specific deployment tasks.
 ## Next steps
 
 - Read [Settings](settings.md) to configure blocking and upstream resolvers.
+- Read [Blocking](blocking.md) for blocklists and response-chain inspection.
 - Read [Rewrite Rules](rewrite-rules.md) to build recursive name mappings and
   split-DNS routing.

@@ -19,8 +19,8 @@ docs/settings.example.yaml
 
 - `server.host` and `server.port` select the DNS listening address.
 - `server.rewriter` contains the ordered rewrite rules and the downloaded
-  blocklist. Set `limit` to `0` to load the whole list; a small value is useful
-  while testing.
+  blocklist. See [Blocking](blocking.md) for supported lists and matching
+  behaviour.
 - `server.client.default` is the default DNS-over-HTTPS resolver.
 - `server.client.items` routes matching queries to different resolvers. This is
   useful for local zones, VPN names, and reverse DNS.
@@ -42,54 +42,6 @@ temporarily change only the DNS port:
 ```console
 hold --config ./settings.yaml --server '{"port":5353}'
 ```
-
-## Blocklists
-
-`hold` supports DNS Response Policy Zone (RPZ) blocklists served over HTTP or
-HTTPS. Each usable line must contain exactly three whitespace-separated fields,
-such as:
-
-```text
-ads.example CNAME .
-```
-
-The first field is treated as the blocked domain. Queries for that domain or any
-of its subdomains are blocked for `A`, `AAAA`, and `CNAME` records. Plain
-one-domain-per-line lists, hosts files, and Adblock Plus filter syntax are not
-currently supported.
-
-### How upstream answers are checked
-
-Blocking is not limited to the name in the original question. After an upstream
-resolver replies, `hold` examines every record set in the response's answer
-chain. If any individual answer matches the blocklist—or is recursively rewritten
-to `BLACKHOLE`—`hold` blocks the whole response and returns `NXDOMAIN`.
-
-For example, a query for an otherwise acceptable name might reveal a blocked
-tracker later in its CNAME chain:
-
-```text
-news.example.  CNAME  metrics.vendor.example.
-metrics.vendor.example.  A  192.0.2.10
-```
-
-If `metrics.vendor.example` is blocked, the second answer causes the complete
-response to be blocked. This prevents an allowed alias from being used to reach
-a blocked destination indirectly.
-
-The example uses the small [OISD](https://oisd.nl/) RPZ list:
-
-```yaml
-blocklist:
-  url: https://small.oisd.nl/rpz
-  limit: 100
-```
-
-OISD also publishes a larger list at `https://big.oisd.nl/rpz`; its website
-describes the available variants and policies. Set `limit: 0` to load the entire
-selected list. Downloads are cached on disk, loaded at startup, and can be
-forcibly re-downloaded through the HTTP control API. Start with a small limit while
-checking memory use, lookup behaviour, and false positives on your network.
 
 ## Running on port 53
 
