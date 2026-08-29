@@ -59,6 +59,5 @@ the service a narrowly scoped bind capability through your service manager.
 Running `sudo hold ...` is also possible, but running the entire DNS service as
 root is not recommended.
 
-The HTTP control API is launched alongside DNS and provides endpoints to clear
-the response cache, refresh the blocklist, and toggle blocking. Treat it as a
-local administration interface and do not expose it to an untrusted network.
+The [Control API](api.md) is launched alongside DNS and provides endpoints to
+clear the response cache, refresh the blocklist, and toggle blocking.

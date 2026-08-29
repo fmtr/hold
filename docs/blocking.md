@@ -67,14 +67,3 @@ downloaded list:
 Because rewrites can be recursive, a name is also blocked if a sequence of
 rewrite rules eventually produces `BLACKHOLE`. See [Rewrite Rules](rewrite-rules.md)
 for details.
-
-## Refreshing and toggling
-
-The HTTP control API can forcibly re-download the blocklist and can toggle
-blocking at runtime. It also clears the DNS response cache when blocking changes,
-so previously cached answers do not bypass the new state.
-
-The API has no built-in authentication or authorization. Treat it as a local
-administration interface and bind it only to a trusted network. If it must be
-accessible more broadly, put it behind a suitably configured reverse proxy that
-provides authentication, access control, and transport security.
