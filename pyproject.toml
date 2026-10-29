@@ -12,7 +12,7 @@ org_friendly = "Frontmatter AI"
 is_client = false
 services = []
 keywords = ["dns", "ad blocking", "home lab", "rewrite", "dns over https"]
-is_pypi = true
+is_pypi = false
 is_dockerhub = false
 
 [tool.corio.metadata.setup]
