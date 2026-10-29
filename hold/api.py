@@ -10,7 +10,7 @@ from hold.paths import paths
 
 
 class DNS(api.Base):
-    TITLE = paths.name_ns
+    TITLE = paths.name
     URL_DOCS = '/'
     PORT = api.Base.PORT + paths.metadata.port + (1000*int(env.IS_DEV))
 

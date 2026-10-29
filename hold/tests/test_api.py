@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from hold.api import DNS, RefreshBlocklist
+from hold.api import DNS, RefreshBlocklist, ToggleBlocking
 
 
 @pytest.mark.asyncio
@@ -40,6 +40,20 @@ async def test_refresh_blocklist_runs_off_event_loop_and_fetches_once():
     assert refresh_calls == 1
     assert clear_values == [True]
     assert cache.cleared
+
+
+@pytest.mark.asyncio
+async def test_toggle_blocking_clears_cached_responses():
+    class Cache(dict):
+        def clear(self):
+            super().clear()
+
+    cache = Cache(blocked_query="NXDOMAIN")
+    server = SimpleNamespace(cache=cache, is_block_enabled=True)
+    endpoint = ToggleBlocking(SimpleNamespace(dns_server=server))
+
+    assert await endpoint.run() is False
+    assert not cache
 
 
 @pytest.mark.asyncio

@@ -18,8 +18,8 @@ class Settings(sets.Base,cli_parse_args=True):
     def disk(self):
         return caching.Disk(self.cache)
 
-    def run(self):
-        super().run()
+    async def run(self):
+        await super().run()
 
         from corio import debug
         debug.trace()
@@ -28,16 +28,16 @@ class Settings(sets.Base,cli_parse_args=True):
 
         self.server.rewriter.blocklist.disk = self.disk
 
-        logger.info(f'Launching {paths.name_ns} {paths.metadata.version=} {corio.get_version()=} from entrypoint.')
+        logger.info(f'Launching {paths.name} {paths.metadata.version=} {corio.get_version()=} from entrypoint.')
         logger.debug(f'{paths.settings.exists()=} {str(paths.settings)=}')
 
         logger.info(f'Launching server...')
         from hold.api import DNS
 
         try:
-            asyncio.run(DNS.start(settings.server))
+            await DNS.start(settings.server)
         except KeyboardInterrupt:
-            logger.info(f'Closed {paths.name_ns}.')
+            logger.info(f'Closed {paths.name}.')
 
 
 
