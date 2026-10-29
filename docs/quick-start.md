@@ -10,12 +10,12 @@ network.
 ## Run
 
 `hold` requires Python 3.14 or newer. Until it is available from PyPI, use the
-[latest GitHub release](https://github.com/fmtr/hold/releases/latest). With
-[uv](https://docs.astral.sh/uv/), installation and launch from the `v0.1.3` Git
-tag is a single command:
+[GitHub repository](https://github.com/fmtr/hold). With
+[uv](https://docs.astral.sh/uv/), installation and launch from the repository is
+a single command:
 
 ```console
-uvx --no-sources --from "git+https://github.com/fmtr/hold.git@v0.1.3" hold --config ./settings.yaml
+uvx --no-sources --from "git+https://github.com/fmtr/hold.git" hold --config ./settings.yaml
 ```
 
 `hold` listens for DNS queries on `server.host` and `server.port`. DNS uses port
@@ -24,7 +24,7 @@ uvx --no-sources --from "git+https://github.com/fmtr/hold.git@v0.1.3" hold --con
 port for an initial test. The `--server` value is merged over the YAML settings:
 
 ```console
-uvx --no-sources --from "git+https://github.com/fmtr/hold.git@v0.1.3" hold --config ./settings.yaml --server '{"port":5353}'
+uvx --no-sources --from "git+https://github.com/fmtr/hold.git" hold --config ./settings.yaml --server '{"port":5353}'
 ```
 
 Query it with `dig`:
