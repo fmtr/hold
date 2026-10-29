@@ -3,7 +3,7 @@ requires = ["setuptools>=82", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.corio.metadata]
-version = "0.1.2"
+version = "0.1.3"
 port = 4
 base = "python"
 description = "A small, rule-driven DNS server for home labs"
@@ -36,17 +36,17 @@ env_list = ["hold"]
 [tool.tox.env.hold]
 description = "Run hold tests."
 deps = ["pytest", "pytest-asyncio"]
-commands = [["python", "-m", "pytest", "-q", "hold/tests"]]
+commands = [["python", "-m", "pytest", "-q", "{posargs:hold/tests}"]]
 
 [project]
 name = "hold"
-version = "0.1.2"
+version = "0.1.3"
 description = "A small, rule-driven DNS server for home labs"
 readme = "README.md"
 license = "Apache-2.0"
 keywords = ["dns", "ad blocking", "home lab", "rewrite", "dns over https"]
 requires-python = ">=3.14"
-dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.8.22"]
+dependencies = ["corio[api,caching,debug,dns,http,logging,patterns,sets,version.dev,yaml]~=2.15.13"]
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-asyncio"]
