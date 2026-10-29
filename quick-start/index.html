@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -476,6 +476,8 @@
       
         
       
+        
+      
     
     
     
@@ -559,6 +561,34 @@
     
   
     0.1.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/0.1.3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.1.3
   
 
     
@@ -666,16 +696,16 @@ replace the example local resolver addresses with resolvers reachable from your
 network.</p>
 <h2 id="run">Run</h2>
 <p><code>hold</code> requires Python 3.14 or newer. Until it is available from PyPI, use the
-<a href="https://github.com/fmtr/hold/releases/latest">latest GitHub release</a>. With
-<a href="https://docs.astral.sh/uv/">uv</a>, installation and launch from the <code>v0.1.1</code> Git
-tag is a single command:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml</span>
+<a href="https://github.com/fmtr/hold">GitHub repository</a>. With
+<a href="https://docs.astral.sh/uv/">uv</a>, installation and launch from the repository is
+a single command:</p>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from "git+https://github.com/fmtr/hold.git" hold --config ./settings.yaml</span>
 </code></pre></div>
 <p><code>hold</code> listens for DNS queries on <code>server.host</code> and <code>server.port</code>. DNS uses port
 53 by default, which normally requires additional privileges. See
 <a href="../settings/#running-on-port-53">Running on port 53</a>, or override the configured
 port for an initial test. The <code>--server</code> value is merged over the YAML settings:</p>
-<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from &quot;git+https://github.com/fmtr/hold.git@v0.1.1&quot; hold --config ./settings.yaml --server &#39;{&quot;port&quot;:5353}&#39;</span>
+<div class="language-console highlight"><pre><span></span><code><span class="go">uvx --no-sources --from "git+https://github.com/fmtr/hold.git" hold --config ./settings.yaml --server '{"port":5353}'</span>
 </code></pre></div>
 <p>Query it with <code>dig</code>:</p>
 <div class="language-console highlight"><pre><span></span><code><span class="go">dig @127.0.0.1 -p 5353 api.service A</span>
@@ -743,7 +773,7 @@ host-specific deployment tasks.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
